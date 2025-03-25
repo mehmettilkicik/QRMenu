@@ -1,17 +1,17 @@
 package main
 
 import (
-	"encoding/json"
+	"QRMenu/config"
 	"net/http"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	response := map[string]string{"message": "Hello World"}
-	json.NewEncoder(w).Encode(response)
+	w.Write([]byte("Hello World"))
 }
 
 func main() {
-	http.HandleFunc("/", handler)
+	config.InitDB()
+
+	http.HandleFunc("/menu", handler)
 	http.ListenAndServe(":8080", nil)
 }
